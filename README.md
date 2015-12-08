@@ -25,7 +25,7 @@ See it live at [betafreak.com](http://www.betafreak.com/betafreak/Games/Furball/
   - Rapid fire, bowling ball bullets, grow and shrink the field, et cetera...
 
 ## Installation
-The server program is a [Node.js](http://www.nodejs.org) application. Go ahead and install Node if you haven't already, then open up a command line and run
+The server program is a [Node.js](http://www.nodejs.org) application. Go ahead and install Node if you haven't already, then clone this repository to a directory of your choice. In that directory, open up a command line and run
 
 ```
 npm install
@@ -37,4 +37,4 @@ in the directory to install Furball's dependencies (Express and socket.io). Then
 npm start
 ```
 
-to start the game server at http://localhost:8080.
+to start the game server at [http://localhost:8080]. Enjoy!
