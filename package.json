@@ -1,0 +1,15 @@
+{
+  "name": "@betafreak/furball",
+  "version": "0.1.1",
+  "description": "A many-player dogfight game written with HTML5 and Canvas",
+  "author": "Hans Jorgensen <hans@betafreak.com>",
+  "homepage": "http://betafreak.com/betafreak/Games/Furball/index.html",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "license": "GPLv2",
+  "dependencies": {
+    "express": "^4.13.3",
+    "socket.io": "^1.3.7"
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Furball - Betafreak</title>
+<script src="game.js"></script>
+<script src="content.js" async></script>
+<script src="config.js"></script>
+<script>
+var game;
+window.addEventListener("load", function(event)
+{
+  var gameCanvas = document.getElementById("gameCanvas");
+  game = new Game(gameCanvas);
+  game.start();
+});
+</script>
+</head>
+<body>
+<main style="text-align:center">
+<table style="text-align:center">
+<tr>
+<td style="text-align:right">
+	<h3>P1:</h3>
+	<p>WASD to move<br>
+	SPACE to fire</p>
+</td>
+<td>
+<canvas id="gameCanvas" width="640" height="480">
+<p>We are sorry, but your browser does not support the Canvas tag.
+In order to play our game, you must be using a browser that supports
+Canvas, such as the newest version of Firefox or Chrome.
+We are sorry for the inconvenience.</p>
+</canvas>
+</td>
+<td style="text-align:left">
+	<h3>P2:</h3>
+	<p>Arrows to move<br>
+	ENTER to fire</p>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+Press + or - to add and destroy CPU-controlled ships.
+</td>
+</tr>
+</table>
+</main>
+</body>
+</html>

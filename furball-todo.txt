@@ -1,0 +1,128 @@
+Furball TODO:
+
+Current Work:
+[ ] Refactor type system
+	[x] Get rid of prototype reliance
+		[x] GameObject is merely a contractual interface with no actual code
+		[x] Physics and boundary wrapping is in a helper function, not on super
+	[x] Get rid of vectors
+		[x] x, y, dx, and dy are direct properties of the objects
+		[x] (This should make the game a whole lot faster)
+	[ ] Add object properties
+		[ ] Most properties that were read-write (such as boost power) are read-only
+			with backing variables inside closures
+	[ ] Refactor input
+		[ ] All objects should have movement and physics controlled by an external source
+		[ ] Local objects respond to key input and normal physics rules
+		[ ] Network objects get positions and actions from that host computer
+		[ ] This applies to ships, bullets, and particles
+		[ ] Mutual distrusting clients - have server or multiple clients do processing
+
+General:
+- Up to 16 players, start with computer AIs
+  - The full version would be an adhoc join system with different sessions
+    and servers
+  - But for now, everyone else is a computer on your system
+- Ships have a very simple control scheme:
+  - They move some default speed forward
+  - Press Up to boost
+  - Press Down to brake
+  - Press Left and Right to turn
+  - Press Space to fire
+- Each ship has some amount of HP - if you get shot too much, you die
+  - Bullets are everywhere! And so are ships!
+  - Bullets and ships do not make contact with their own kind,
+    but do make contact with each other
+  - Bullets remember who shot them - if you are killed, the player
+    or team that shot you gets a point
+- Powerups!
+  - Appear randomly
+  - Collect them for goodies and stuff
+  - Big Shot: your next shot is a bowling ball that mows down enemies
+  - Rapid Fire: your bullet delay is shortened for x amount of bullets
+  - Flag: you get points slowly and regularly
+- Closed Quarters
+  - The world is tiny! Calibrated so that 16 players is an absolute madhouse!
+  - However, we now have some additional considerations now that Furball
+    is a browser-based, networked game:
+	- Each person that sees a browser screen only cares about one ship: theirs.
+	  Thus, the world can scroll and perhaps even rotate around the player
+	  (though I am not inclined to rotate everything).
+	- Or maybe it shouldn't. Perhaps you can simply get away with a highlight
+	  around you.
+	- Whatever it is, the world needs to have the same proportions on all
+	  screens, be they landscape, portrait, or what have you. Most likely,
+	  the field must be square.
+	- It also needs to be fair: a mobile user, for instance, can't possibly
+	  have the whole world on his screen. It has to scroll. It likely even
+	  has to rotate.
+	  - Make scrolling a given, provide a rotate checkbox
+
+[x] Initial Game Loop
+	[x] Clear screen to graph or line paper
+[x] Add your ship
+	[x] Ship appears from one of the several sprites
+	[x] Ship moves forward, is rotated
+[x] Ship responds to key input
+	[x] Add keydown and keyup tracking handlers - simple versions of the one
+		in Futility. Probably just do a named array of Booleans
+	[x] A and D: Ship rotates left or right, respectively
+	[x] W: Ship boosts forward
+		[x] Maximum speed, goes back to normal when boost is released
+		[x] Boost runs out and becomes ineffective until released
+	[x] S: Ship brakes
+		[x] Minimum speed, goes back to normal when brake is released
+		[x] Brake power runs out and becomes slightly slower than normal
+			until released
+	[x] Space: Ship fires a bullet
+		[x] Keep a list of bullets with their lifetimes and directions
+		[x] Iterate through that list
+		[x] When a bullet is fired, it will be some amount of time before
+			you can fire again. The timer resets when the spacebar is
+			released - it is better to spam the spacebar than hold it down.
+	[x] Smooth boosting and braking
+	[x] Removing window focus releases all keys
+[/] Audio
+	[x] Sounds class with list of sounds for interfacing
+	[x] Load sounds from old game
+	[-] Cross-browser compatibility and local file loading
+[ ] There are other ships
+	[ ] Up to 2 players can play local
+		[x] Neither player is enabled by default
+		[x] Key bindings for each
+			[ ] Create an options pane to change these as desired
+	[x] All other ships (for now) have computer control
+		[x] Press "N" to add a local computer player
+			[x] Change this key binding to "+"
+		[x] Press "-" to destroy a local computer player
+		[-] The current number of computer players is maintained
+			such that any computer player dying in combat normally
+			will respawn
+		[x] Local computer AI merely manipulates input actions
+			[ ] Make it smarter and add difficulty settings
+	[ ] FUTURE PROOFING: Many ships will be networked controlled - getting
+		server data for positions and input actions. 
+	[x] Other ships use the same input actions and fire the same bullets.
+	[x] Bullets of different affiliations hurt you, but you are not affected
+		by your own bullets.
+		[x] You have a certain amount of HP - if you run out, you die!
+		[x] Press the spacebar after a certain amount of time to start again
+		[x] And, of course, this goes for the other ships
+		[-] Write a quadtree algorithm to sort bullets
+[ ] Scoring
+	[x] When you deliver the final blow to someone, you score a point!
+	[-] You lose a point if you get killed, no matter the method
+	[x] Both players' scores appear on the top of the screen
+[ ] More work on computer players
+	[x] Computers spawn with all of the other ship types
+	[ ] Computers can detect you across wrap around boundaries
+	[ ] Computers calculate their headings correctly
+[ ] Documentation
+	[ ] When the player has not spawned, show "Press <fire>" next to score
+	[ ] When the player has spawned, show all controls
+	[ ] Comment the heck out of this code
+[ ] Integration into betafreak.com
+	[ ] Add the page to betafreak.com, giving it the appropriate
+		style sheets
+	[ ] Comment the heck out of this code - it is open source,
+		so it should be visible
